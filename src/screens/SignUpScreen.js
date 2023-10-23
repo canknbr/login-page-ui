@@ -1,12 +1,25 @@
 import { View, Text, TouchableOpacity, Image, TextInput } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { themeColors } from "../theme";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../config/firebase";
 
 export default function SignUpScreen() {
   const navigation = useNavigation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleSignUp = async () => {
+    if (email && password) {
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+  };
   return (
     <View
       className="flex-1 bg-white"
@@ -39,14 +52,20 @@ export default function SignUpScreen() {
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
             placeholder="Enter Email"
+            value={email}
+            onChangeText={(val) => setEmail(val)}
           />
           <Text className="text-gray-700 ml-4">Password</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-7"
             secureTextEntry
             placeholder="Enter Password"
+            value={password}
+            onChangeText={(val) => setPassword(val)}
           />
-          <TouchableOpacity className="py-3 bg-yellow-400 rounded-xl">
+          <TouchableOpacity
+            onPress={handleSignUp}
+            className="py-3 bg-yellow-400 rounded-xl">
             <Text className="font-xl font-bold text-center text-gray-700">
               Sign Up
             </Text>

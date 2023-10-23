@@ -6,13 +6,26 @@ import {
   Image,
   TextInput,
 } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { themeColors } from "../theme";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../config/firebase";
 const LoginScreen = () => {
   const navigation = useNavigation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleLogin = async () => {
+    if (email && password) {
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+  };
 
   return (
     <>
@@ -49,19 +62,25 @@ const LoginScreen = () => {
             <TextInput
               className="p-4 bg-gray-100 text-gray-700 rounded-2xl"
               placeholder="Enter your email address"
+              value={email}
+              onChangeText={(val) => setEmail(val)}
             />
             <Text className="text-gray-700 ml-4">Password</Text>
             <TextInput
               className="p-4 bg-gray-100 text-gray-700 rounded-2xl"
               placeholder="Enter your password"
               secureTextEntry
+              value={password}
+              onChangeText={(val) => setPassword(val)}
             />
             <TouchableOpacity className="flex items-end my-2">
               <Text className="text-gray-700 font-bold text-xs underline">
                 Forgot Your Password?
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity className="bg-yellow-400 py-4 rounded-xl">
+            <TouchableOpacity
+              onPress={handleLogin}
+              className="bg-yellow-400 py-4 rounded-xl">
               <Text className="text-gray-700 font-bold text-xl text-center">
                 Login
               </Text>
