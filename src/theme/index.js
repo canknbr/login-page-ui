@@ -1,3 +1,4 @@
 export const themeColors = {
-   bg: '#877dfa',
-}   
+  bg: "#F1E9DB",
+  text: "#343a40",
+};

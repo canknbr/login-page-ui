@@ -22,8 +22,8 @@ const WelcomeScreen = () => {
       className="flex-1"
       style={{ backgroundColor: themeColors.bg }}>
       <View className="flex-1 flex justify-around my-4">
-        <Text className="text-center text-white font-bold text-4xl">
-          Let's Get Stared!
+        <Text className="text-center text-gray-700 font-bold text-4xl">
+          Let's Get Started!
         </Text>
         <View className="flex-row justify-center">
           <Image
@@ -40,11 +40,11 @@ const WelcomeScreen = () => {
             </Text>
           </TouchableOpacity>
           <View className="flex-row items-center justify-center">
-            <Text className="text-white font-semibold">
+            <Text className="text-[#343a40] font-semibold">
               Already have an account?
             </Text>
             <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-              <Text className="font-bold ml-2 text-yellow-400">Login</Text>
+              <Text className="font-bold ml-2 text-[#ffa8a8]">Login</Text>
             </TouchableOpacity>
           </View>
         </View>
